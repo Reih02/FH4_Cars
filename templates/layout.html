@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel='stylesheet' type='text/css' href='/static/css/style.css'>
+    <title>
+      FH4 Cars - {{ page_title }}
+    </title>
+  </head>
+  <body>
+    <div id = 'wrapper'>
+    {%include 'header.html'%}
+    {%include 'navigation.html'%}
+    {%block content%} {%endblock%}
+    {%include 'footer.html'%}
+    </div>
+  </body>
+</html>
