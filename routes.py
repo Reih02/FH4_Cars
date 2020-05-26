@@ -22,5 +22,18 @@ def cars():
                            cars=cars)
 
 
+@app.route('/cars/<int:id>')
+def car(id):
+    car = models.Car.query.filter_by(id=id).first()
+    title = car.name
+    return render_template('show_cars.html', page_title=title,
+                           car=car)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=1111)
