@@ -1,0 +1,21 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  CAR LIST
+</title>
+<div id = 'smallbox'>
+  <h2>
+    You can view all cars below or search for a specific model using the search
+    bar
+  </h2>
+</div>
+
+<div id = 'smallbox1'>
+  {% for car in cars %}
+    <!--adds each image onto page by using its value in the database-->
+    <p><a href="/car/{{ car.id }}">{{ car.name }} {{ car.image }}</p>
+  {% endfor %}
+</div>
+
+{%endblock%}
