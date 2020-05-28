@@ -95,6 +95,12 @@ h3 {
   transform: translate(-50%, -50%);
 }
 
+#carlist {
+  width: 72.6%;
+  height: 96.8%;
+}
+
+
 /*#bottomborder {
   width: 100%;
   height: 20px;

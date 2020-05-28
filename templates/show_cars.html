@@ -1,0 +1,20 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  CAR INFO
+</title>
+<div id = 'smallbox'>
+  <h2>
+    You can view more information on the car you selected below
+  </h2>
+</div>
+
+<div id = 'smallbox1'>
+  {% for car in car %}
+    <!--adds each image onto page by using its value in the database-->
+    <p><a href="/car/{{ car.id }}">{{ car.name }} </p> 
+  {% endfor %}
+</div>
+
+{%endblock%}
