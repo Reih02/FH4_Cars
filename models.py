@@ -12,3 +12,9 @@ class Car(db.Model):
     weight = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text)
     manufacturerid = db.Column(db.Text, db.ForeignKey('Manufacturer.id'))
+
+class Manufacturer(db.Model):
+    __tablename__ = 'Manufacturer'
+
+    id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True)
+    name = db.Column(db.Text(50), nullable=False)

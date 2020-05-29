@@ -6,15 +6,21 @@
 </title>
 <div id = 'smallbox'>
   <h2>
-    You can view more information on the car you selected below
+    You can view more information on the '{{ car.name }}' below
   </h2>
 </div>
 
 <div id = 'smallbox1'>
-  {% for car in car %}
     <!--adds each image onto page by using its value in the database-->
-    <p><a href="/car/{{ car.id }}">{{ car.name }} </p> 
-  {% endfor %}
+    <img id = "carshow" src={{ car.image }} alt="{{ car.name }} Picture">
+    <div id = "showcarstext">
+      <h2>Name: </h2>{{ car.name }} <br>
+      <h2>Manufacturer:</h2>  <br>
+      <h2>Horsepower:</h2> {{ car.horsepower }} <br>
+      <h2>Cost: </h2>{{ car.cost }} <br>
+      <h2>Wheeldrive:</h2> {{ car.wheeldrive }} <br>
+      <h2>Weight:</h2> {{car.weight}} <br>
+    </div>
 </div>
 
 {%endblock%}

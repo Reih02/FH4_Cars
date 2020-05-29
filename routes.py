@@ -22,9 +22,9 @@ def cars():
                            cars=cars)
 
 
-@app.route('/cars/<int:id>')
-def car(id):
-    car = models.Car.query.filter_by(id=id).first()
+@app.route('/car/<int:test>')
+def car(test):
+    car = models.Car.query.filter(models.Car.id.in_([test])).first()
     title = car.name
     return render_template('show_cars.html', page_title=title,
                            car=car)
