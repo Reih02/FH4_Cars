@@ -30,6 +30,14 @@ def car(test):
                            car=car)
 
 
+@app.route('/manufacturers')
+def manufacturers():
+    manufacturers = models.Manufacturer.query.all()
+    return render_template('list_manufacturers.html',
+                           page_title="MANUFACTURER LIST",
+                           manufacturers=manufacturers)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html")

@@ -1,0 +1,21 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  MANUFACTURER LIST
+</title>
+<div id = 'smallbox'>
+  <h2>
+    You can view all manufacturers below or search for a specific company using
+    the search bar
+  </h2>
+</div>
+
+<div id = 'smallbox1'>
+  {% for manufacturer in manufacturers %}
+    <!--adds each link onto page by using its value in the database-->
+    <p><a href="/manufacturer/{{ manufacturer.id }}">{{ manufacturer.name }}</p>
+  {% endfor %}
+</div>
+
+{%endblock%}
