@@ -1,0 +1,20 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  MANUFACTURER INFO
+</title>
+<div id = 'smallbox'>
+  <h2>
+    You can view more information on '{{ manufacturer.name }}' below
+  </h2>
+</div>
+
+<div id = 'smallbox1'>
+    <div id = "showcarstext">
+      <h2>Name: </h2>{{ manufacturer.name }} <br>
+      <h2>Description: </h2>{{ manufacturer.name }} is a {{ manufacturer.details }}<br>
+    </div>
+</div>
+
+{%endblock%}

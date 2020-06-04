@@ -22,12 +22,11 @@ def cars():
                            cars=cars)
 
 
-@app.route('/car/<int:test>')
-def car(test):
-    car = models.Car.query.filter(models.Car.id.in_([test])).first()
+@app.route('/car/<int:info>')
+def car(info):
+    car = models.Car.query.filter(models.Car.id.in_([info])).first()
     title = car.name
-    return render_template('show_cars.html', page_title=title,
-                           car=car)
+    return render_template('show_cars.html', page_title=title, car=car)
 
 
 @app.route('/manufacturers')
@@ -36,6 +35,14 @@ def manufacturers():
     return render_template('list_manufacturers.html',
                            page_title="MANUFACTURER LIST",
                            manufacturers=manufacturers)
+
+
+@app.route('/manufacturer/<int:info>')
+def manufacturer(info):
+    manufacturer = models.Manufacturer.query.filter(models.Manufacturer.id.in_([info])).first()
+    title = manufacturer.name
+    return render_template('show_manufacturers.html', page_title=title,
+                           manufacturer=manufacturer)
 
 
 @app.errorhandler(404)
