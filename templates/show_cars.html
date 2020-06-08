@@ -15,11 +15,11 @@
     <img id = "carshow" src={{ car.image }} alt="{{ car.name }} Picture">
     <div id = "showcarstext">
       <h2>Name: </h2>{{ car.name }} <br>
-      <h2>Manufacturer:</h2>  <br>
-      <h2>Horsepower:</h2> {{ car.horsepower }} <br>
+      <h2>Manufacturer: </h2><a href="/manufacturer/{{ manufacturer.id }}">{{ manufacturer.name }}</a> <br>
+      <h2>Horsepower: </h2> {{ car.horsepower }} <br>
       <h2>Cost: </h2>{{ car.cost }} <br>
-      <h2>Wheeldrive:</h2> {{ car.wheeldrive }} <br>
-      <h2>Weight:</h2> {{car.weight}} <br>
+      <h2>Wheeldrive: </h2> {{ car.wheeldrive }} <br>
+      <h2>Weight: </h2> {{car.weight}} <br>
     </div>
 </div>
 

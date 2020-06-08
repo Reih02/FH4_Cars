@@ -12,6 +12,7 @@ class Car(db.Model):
     weight = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text)
     manufacturerid = db.Column(db.Text, db.ForeignKey('Manufacturer.id'))
+    # manufacturer = db.relationship('Manufacturer', back_populates='name')
 
 
 class Manufacturer(db.Model):

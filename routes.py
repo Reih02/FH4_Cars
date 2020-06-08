@@ -24,9 +24,10 @@ def cars():
 
 @app.route('/car/<int:info>')
 def car(info):
-    car = models.Car.query.filter(models.Car.id.in_([info])).first()
+    car = models.Car.query.filter_by(id=info).first_or_404()
+    manufacturer = models.Manufacturer.query.filter_by(id=car.manufacturerid).first()
     title = car.name
-    return render_template('show_cars.html', page_title=title, car=car)
+    return render_template('show_cars.html', page_title=title, car=car, manufacturer=manufacturer)
 
 
 @app.route('/manufacturers')
