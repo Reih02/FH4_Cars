@@ -1,0 +1,23 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  Login to FH4 Cars!
+</title>
+<div id = 'smallbox'>
+  <h2>
+    Please login to FH4 Cars below
+  </h2>
+<div id = 'smallbox1'>
+  <h3>
+    {{ form.username.label }}<br>
+    {{ form.username(size=32) }}
+  </h3>
+  <h3>
+    {{ form.password.label }}<br>
+    {{ form.password(size=32) }}
+  </h3>
+  <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+  <p>{{ form.submit() }}</p>
+</div>
+{%endblock%}
