@@ -9,15 +9,24 @@
     Please login to FH4 Cars below
   </h2>
 <div id = 'smallbox1'>
-  <h3>
-    {{ form.username.label }}<br>
-    {{ form.username(size=32) }}
-  </h3>
-  <h3>
-    {{ form.password.label }}<br>
-    {{ form.password(size=32) }}
-  </h3>
-  <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-  <p>{{ form.submit() }}</p>
+<form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+    <h3>
+      {{ form.username.label }}<br>
+      {{ form.username(size=18) }}
+      {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </h3>
+    <h3>
+      {{ form.password.label }}<br>
+      {{ form.password(size=18) }}
+      {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </h3>
+      <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+      <p>{{ form.submit() }}</p>
+</form>
 </div>
 {%endblock%}

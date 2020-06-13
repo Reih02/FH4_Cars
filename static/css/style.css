@@ -3,20 +3,11 @@ html {
   border-bottom-style: solid;
   border-bottom-color: black;
   border-bottom-width: 150px;
-}
-
-h1 {
   font-family: 'Abel', sans-serif;
 }
 
 h2 {
   padding-top: 4.5%;
-  font-family: 'Abel', sans-serif;
-}
-
-h3 {
-  padding-top: 0%;
-  font-family: 'Abel', sans-serif;
 }
 
 .topnav {
