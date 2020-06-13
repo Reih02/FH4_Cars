@@ -79,14 +79,6 @@ h3 {
   text-decoration-color: white;
 }
 
-#smallbox1 a:link {
-  color: #34c3eb;
-}
-
-#smallbox1 a:visited {
-  color: red;
-}
-
 #image1 {
   float: none;
   position: absolute;
@@ -107,12 +99,4 @@ h3 {
 
 #showcarstext {
   font-size: 25px;
-}
-
-#showcarstext a:link {
-  color: #34c3eb;
-}
-
-#showcarstext a:visited {
-  color: red;
 }
