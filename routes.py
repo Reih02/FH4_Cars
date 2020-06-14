@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect
+from flask import Flask, render_template, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import models
 from forms import LoginForm
@@ -18,7 +18,7 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('login.html', title='Sign In', form=form)
 
 
@@ -39,7 +39,8 @@ def car(info):
     car = models.Car.query.filter_by(id=info).first_or_404()
     manufacturer = models.Manufacturer.query.filter_by(id=car.manufacturerid).first()
     title = car.name
-    return render_template('show_cars.html', page_title=title, car=car, manufacturer=manufacturer)
+    return render_template('show_cars.html', page_title=title, car=car,
+                           manufacturer=manufacturer)
 
 
 @app.route('/manufacturers')

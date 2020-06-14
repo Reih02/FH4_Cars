@@ -107,3 +107,9 @@ h2 {
 #showcarstext a:visited {
   color: red;
 }
+
+#flashmsg {
+  float: center;
+  padding-top: 1%;
+  margin-left: 41%;
+}

@@ -12,11 +12,11 @@
     {%include 'navigation.html'%}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <ul>
+    <div id = 'flashmsg'>
       {% for message in messages %}
-        <li>{{ message }}</li>
+        {{ message }}
       {% endfor %}
-    </ul>
+    </div>
     {% endif %}
     {% endwith %}
     {%block content%} {%endblock%}

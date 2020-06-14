@@ -12,7 +12,6 @@ class Car(db.Model):
     weight = db.Column(db.Text, nullable=False)
     image = db.Column(db.Text)
     manufacturerid = db.Column(db.Text, db.ForeignKey('Manufacturer.id'))
-    # manufacturer = db.relationship('Manufacturer', back_populates='name')
 
 
 class Manufacturer(db.Model):
@@ -21,3 +20,19 @@ class Manufacturer(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True)
     name = db.Column(db.Text(50), nullable=False)
     details = db.Column(db.Text(250), nullable=False)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), index=True, unique=True)
+    password_hash = db.Column(db.String(128))
+
+    # tells Python how to print objects of this class for debugging purposes
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
+
+class UserCar(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    uid = db.Column(db.Integer)
+    cid = db.Column(db.Integer)
