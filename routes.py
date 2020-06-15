@@ -2,6 +2,8 @@ from flask import Flask, render_template, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import models
 from forms import LoginForm
+from flask_login import logout_user, login_user, LoginManager, current_user
+
 
 app = Flask(__name__)
 
@@ -10,16 +12,28 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///FH4_cars.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+loginTest = LoginManager(app)
 
 
-@app.route('/login', methods=["GET", "POST"])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        return redirect(url_for('login'))
+        user = models.User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.route('/')
@@ -62,6 +76,11 @@ def manufacturer(info):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html")
+
+
+@loginTest.user_loader
+def load_user(id):
+    return models.User.query.get(int(id))
 
 
 if __name__ == "__main__":

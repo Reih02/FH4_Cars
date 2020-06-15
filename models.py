@@ -1,4 +1,6 @@
-from routes import db
+from routes import db, loginTest
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
 class Car(db.Model):
@@ -22,7 +24,7 @@ class Manufacturer(db.Model):
     details = db.Column(db.Text(250), nullable=False)
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password_hash = db.Column(db.String(128))
@@ -30,6 +32,12 @@ class User(db.Model):
     # tells Python how to print objects of this class for debugging purposes
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 
 class UserCar(db.Model):

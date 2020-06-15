@@ -1,7 +1,7 @@
 <div class="topnav">
 
   <div class="topnav-centered">
-    <a href="/"><h3>Home</h3></a>
+    <a href=" {{ url_for('home')}} "><h3>Home</h3></a>
   </div>
 
   <a><img src="/static/images/logo.jpg" length="240" width="150"></a>
@@ -10,7 +10,11 @@
 
 
   <div class="topnav-right">
-    <a href="/login"><h3>Log In</h3></a>
+    {% if current_user.is_anonymous %}
+    <a href="{{ url_for('login') }}"><h3>Log In</h3></a>
+    {% else %}
+    <a href="{{ url_for('logout') }}"><h3>Logout</h3></a>
+    {% endif %}
     <a href="/signup"><h3>Sign Up</h3></a>
     <a href="/profile"><h3>Profile</h3></a>
   </div>
