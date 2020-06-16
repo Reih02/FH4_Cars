@@ -2,7 +2,7 @@ from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 import models
 from forms import LoginForm, RegistrationForm
-from flask_login import logout_user, login_user, LoginManager, current_user
+from flask_login import logout_user, login_user, LoginManager, current_user, login_required
 
 # initialisation stuff
 app = Flask(__name__)
@@ -94,9 +94,11 @@ def logout():
     return redirect(url_for('home'))
 
 
-#@app.route('/profile')
-#@login_required
-#def profile():
+@app.route('/profile/<username>')
+@login_required
+def profile(username):
+    profile = models.User.query.filter_by(username=username).first_or_404()
+    return render_template('profile.html', title='Your Profile', profile=profile)
 
 
 @app.errorhandler(404)

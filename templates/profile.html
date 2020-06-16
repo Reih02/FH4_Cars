@@ -1,0 +1,17 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  Your Profile
+</title>
+<div id = 'smallbox'>
+  <h2>
+    Welcome to your profile, {{ current_user.username }}! You can view your saved cars below
+  </h2>
+</div>
+
+<div id = 'smallbox1'>
+  <h3>{{ current_user.username }}'s Car List: </h3>
+</div>
+
+{%endblock%}

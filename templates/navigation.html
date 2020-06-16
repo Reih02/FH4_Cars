@@ -19,7 +19,8 @@
     {% if current_user.is_anonymous %}
       <a href="/profile"><h3>Profile</h3></a>
     {% else %}
-      <a href="/profile"><h3>{{ current_user.username }}</h3></a>
+      <!--<a href="/profile/<username>"><h3>{{ current_user.username }}</h3></a>-->
+      <a href="{{ url_for('profile', username=current_user.username) }}"><h3>{{ current_user.username }}</h3></a>
     {% endif %}
   </div>
 </div>
