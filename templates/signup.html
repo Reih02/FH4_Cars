@@ -1,0 +1,38 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  Sign Up to FH4 Cars!
+</title>
+<div id = 'smallbox'>
+  <h2>
+    Please Sign Up to FH4 Cars below
+  </h2>
+<div id = 'smallbox1'>
+<form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+    <h3>
+      {{ form.username.label }}<br>
+      {{ form.username(size=18) }}
+      {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </h3>
+    <h3>
+      {{ form.password.label }}<br>
+      {{ form.password(size=18) }}
+      {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </h3>
+    <h3>
+      {{ form.password2.label }}<br>
+      {{ form.password2(size=18) }}<br>
+      {% for error in form.password2.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </h3>
+      <p>{{ form.submit() }}</p>
+</form>
+</div>
+{%endblock%}
