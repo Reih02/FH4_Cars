@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, EqualTo
 import models
 
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
@@ -21,3 +22,8 @@ class RegistrationForm(FlaskForm):
         user = models.User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Please use a different username.')
+
+
+class SearchForm(FlaskForm):
+    query = StringField('query', validators=[DataRequired()])
+    submit = SubmitField('🔍')

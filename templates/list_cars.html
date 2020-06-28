@@ -9,6 +9,12 @@
     You can view all cars below or search for a specific model using the search
     bar
   </h2>
+  <div id="searchWrapper">
+    <form method="POST"}}>
+      {{ searchform.csrf_token }}
+      {{ searchform.query }}{{ searchform.submit }}
+    </form>
+  </div>
 </div>
 
 <div id = 'smallbox1'>

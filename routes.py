@@ -1,7 +1,8 @@
 from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.urls import url_parse
 import models
-from forms import LoginForm, RegistrationForm
+from forms import LoginForm, RegistrationForm, SearchForm
 from flask_login import logout_user, login_user, LoginManager, current_user, login_required
 
 # initialisation stuff
@@ -16,17 +17,38 @@ loginTest = LoginManager(app)
 loginTest.login_view = 'login'
 # ---------------------
 
+# defines searchform for use in search functions
+@app.context_processor
+def inject_search():
+    searchform = SearchForm()
+    return dict(searchform=searchform)
+
 
 @app.route('/')
 def home():
     return render_template("home.html", page_title="WELCOME TO FH4 CARS")
 
 
-@app.route('/cars')
+@app.route('/cars', methods=['GET', 'POST'])
 def cars():
+    form = SearchForm()
     cars = models.Car.query.all()
-    return render_template('list_cars.html', page_title="CAR LIST",
-                           cars=cars)
+    # if search form validates:
+    if form.validate_on_submit():
+        # run next route (carsearch)
+        return redirect(url_for('carsearch', search=form.query.data))
+    else:
+        return render_template('list_cars.html', page_title="CAR LIST",
+                               cars=cars)
+
+
+@app.route('/carsearch/<search>', methods=['GET', 'POST'])
+def carsearch(search):
+    car = models.Car.query.filter(models.Car.name.ilike('%{}%'.format(search))).all()
+    print(car)
+    for i in car:
+        print(i.name)
+    return render_template('csearch.html', page_title="YOUR SEARCH", car=car)
 
 
 @app.route('/car/<int:info>')
@@ -38,12 +60,26 @@ def car(info):
                            manufacturer=manufacturer)
 
 
-@app.route('/manufacturers')
+@app.route('/manufacturers', methods=['GET', 'POST'])
 def manufacturers():
+    form = SearchForm()
     manufacturers = models.Manufacturer.query.all()
-    return render_template('list_manufacturers.html',
-                           page_title="MANUFACTURER LIST",
-                           manufacturers=manufacturers)
+    if form.validate_on_submit():
+        return redirect(url_for('manufacturersearch', search=form.query.data))
+    else:
+        return render_template('list_manufacturers.html',
+                               page_title="MANUFACTURER LIST",
+                               manufacturers=manufacturers)
+
+
+@app.route('/manufacturersearch/<search>', methods=['GET', 'POST'])
+def manufacturersearch(search):
+    manufacturer = models.Manufacturer.query.filter(models.Manufacturer.name.ilike('%{}%'.format(search))).all()
+    print(manufacturer)
+    for i in manufacturer:
+        print(i.name)
+    return render_template('msearch.html', page_title="YOUR SEARCH",
+                           manufacturer=manufacturer)
 
 
 @app.route('/manufacturer/<int:info>')
@@ -52,7 +88,6 @@ def manufacturer(info):
     title = manufacturer.name
     return render_template('show_manufacturers.html', page_title=title,
                            manufacturer=manufacturer)
-
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -99,6 +134,11 @@ def logout():
 def profile(username):
     profile = models.User.query.filter_by(username=username).first_or_404()
     return render_template('profile.html', title='Your Profile', profile=profile)
+
+
+# @login_manager.unauthorized_handler
+# def unauthorized_callback():
+    # return redirect(url_for('login'))
 
 
 @app.errorhandler(404)

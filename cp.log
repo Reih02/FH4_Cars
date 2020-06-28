@@ -1,0 +1,8 @@
+INFO: Platform: win32
+INFO: Version Info: v0.3.0
+DEBUG: Log Path: cp.log
+DEBUG: command: ['python', 'E:\\13DTP\\FH4 Cars\\routes.py']
+DEBUG: file: None
+DEBUG: pause: True
+DEBUG: repl: python
+DEBUG: args: ['E:\\13DTP\\FH4 Cars\\routes.py']

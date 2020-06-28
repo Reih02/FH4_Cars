@@ -1,0 +1,20 @@
+{%extends 'layout.html'%}
+
+{%block content%}
+<title>
+  MANUFACTURER LIST
+</title>
+<div id = 'smallbox'>
+  <h2>
+    Manufacturers matching your search:
+  </h2>
+</div>
+
+<div id = 'smallbox1'>
+  {% for manufacturers in manufacturer %}
+    <!--adds each image onto page by using its value in the database-->
+    <p><a href="/manufacturer/{{ manufacturer.id }}">{{ manufacturers.name }}</p>
+  {% endfor %}
+</div>
+
+{%endblock%}
