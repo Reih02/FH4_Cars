@@ -84,10 +84,11 @@ def manufacturersearch(search):
 
 @app.route('/manufacturer/<int:info>')
 def manufacturer(info):
-    manufacturer = models.Manufacturer.query.filter(models.Manufacturer.id.in_([info])).first()
+    manufacturer = models.Manufacturer.query.filter_by(id=info).first()
+    cars = models.Car.query.filter_by(manufacturerid=manufacturer.id).all()
     title = manufacturer.name
     return render_template('show_manufacturers.html', page_title=title,
-                           manufacturer=manufacturer)
+                           manufacturer=manufacturer, cars=cars)
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -14,6 +14,11 @@
     <div id = "showcarstext">
       <h2>Name: </h2>{{ manufacturer.name }} <br>
       <h2>Description: </h2>{{ manufacturer.name }} is a {{ manufacturer.details }}<br>
+      <h2>Cars {{ manufacturer.name}} has made: </h2>
+      {% for car in cars %}
+        <!--adds each image onto page by using its value in the database-->
+        <p><a href="/car/{{ car.id }}">{{ car.name }}</p> <img id="carlist" src={{ car.image }} alt="{{ car.name }} Picture">
+      {% endfor %}
     </div>
 </div>
 
