@@ -27,3 +27,7 @@ class RegistrationForm(FlaskForm):
 class SearchForm(FlaskForm):
     query = StringField('query', validators=[DataRequired()])
     submit = SubmitField('🔍')
+
+
+class FavouriteCarForm(FlaskForm):
+    submit = SubmitField('Add to favourites')

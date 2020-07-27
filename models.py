@@ -38,9 +38,17 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    # see miguel grinberg - followers for this
+    # favourited = db.relationship()
 
 
 class UserCar(db.Model):
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    uid = db.Column(db.Integer)
-    cid = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True)
+    uid = db.Column(db.ForeignKey('User.id'))
+    cid = db.Column(db.ForeignKey('Car.id'))
+
+# see miguel grinberg - followers for this
+# class UserCar(db.Model):
+    # __tablename__ = 'UserCar'
+    # uid = db.Column(db.Integer, db.ForeignKey('User.id'))
+    # cid = db.Column(db.Integer, db.ForeignKey('Car.id'))

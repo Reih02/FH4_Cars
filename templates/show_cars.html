@@ -13,6 +13,13 @@
 <div id = 'smallbox1'>
     <!--adds each image onto page by using its value in the database-->
     <img id = "carshow" src={{ car.image }} alt="{{ car.name }} Picture">
+    <!--<button type="button"> <h3> Add to favourites </h3></button>-->
+    <form>
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.submit() }}
+      </p>
+    </form>
     <div id = "showcarstext">
       <h2>Name: </h2>{{ car.name }} <br>
       <h2>Manufacturer: </h2><a href="/manufacturer/{{ manufacturer.id }}">{{ manufacturer.name }}</a> <br>

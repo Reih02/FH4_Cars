@@ -2,7 +2,7 @@ from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.urls import url_parse
 import models
-from forms import LoginForm, RegistrationForm, SearchForm
+from forms import LoginForm, RegistrationForm, SearchForm, FavouriteCarForm
 from flask_login import logout_user, login_user, LoginManager, current_user, login_required
 
 # initialisation stuff
@@ -51,13 +51,22 @@ def carsearch(search):
     return render_template('csearch.html', page_title="YOUR SEARCH", car=car)
 
 
-@app.route('/car/<int:info>')
+@app.route('/car/<int:info>', methods=['GET', 'POST'])
 def car(info):
+    form = FavouriteCarForm()
     car = models.Car.query.filter_by(id=info).first_or_404()
     manufacturer = models.Manufacturer.query.filter_by(id=car.manufacturerid).first()
     title = car.name
+    if form.validate_on_submit():
+        if not current_user.is_authenticated:
+            print("it knows youre not authed")
+            flash("Please log in to favourite this car")
+            return redirect(url_for(car, info))
+        #favourite_car = models.UserCar(uid=current_user.id, cid=info)
+        #db.session.add(favourite_car)
+        #db.session.commit()
     return render_template('show_cars.html', page_title=title, car=car,
-                           manufacturer=manufacturer)
+                           manufacturer=manufacturer, form=form)
 
 
 @app.route('/manufacturers', methods=['GET', 'POST'])
