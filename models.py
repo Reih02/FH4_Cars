@@ -43,6 +43,7 @@ class User(UserMixin, db.Model):
 
 
 class UserCar(db.Model):
+    __tablename__ = 'UserCar'
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.ForeignKey('User.id'))
     cid = db.Column(db.ForeignKey('Car.id'))

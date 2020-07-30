@@ -58,6 +58,7 @@ def car(info):
     manufacturer = models.Manufacturer.query.filter_by(id=car.manufacturerid).first()
     title = car.name
     if form.validate_on_submit():
+        print("form validates")
         if not current_user.is_authenticated:
             print("it knows youre not authed")
             flash("Please log in to favourite this car")
@@ -142,8 +143,15 @@ def logout():
 @app.route('/profile/<username>')
 @login_required
 def profile(username):
+    print(current_user.id)
     profile = models.User.query.filter_by(username=username).first_or_404()
-    return render_template('profile.html', title='Your Profile', profile=profile)
+    favcars = models.UserCar.query.filter_by(uid=current_user.id).all()
+    templist = []
+    for i in favcars:
+        templist.append(i.cid)
+    cars = models.Car.query.filter(models.Car.id.in_(templist)).all()
+    return render_template('profile.html', title='Your Profile',
+                           profile=profile, cars=cars)
 
 
 # @login_manager.unauthorized_handler
