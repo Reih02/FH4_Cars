@@ -29,5 +29,5 @@ class SearchForm(FlaskForm):
     submit = SubmitField('🔍')
 
 
-class FavouriteCarForm(FlaskForm):
-    submit = SubmitField('Add to favourites')
+# class FavouriteCarForm(FlaskForm):
+    # submit = SubmitField('Add to favourites')

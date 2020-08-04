@@ -2,13 +2,13 @@ from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.urls import url_parse
 import models
-from forms import LoginForm, RegistrationForm, SearchForm, FavouriteCarForm
+from forms import LoginForm, RegistrationForm, SearchForm#, FavouriteCarForm
 from flask_login import logout_user, login_user, LoginManager, current_user, login_required
 
 # initialisation stuff
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'reilly_is_cool'
+app.config['SECRET_KEY'] = 'vr2YEHkNYPsuF3TdFMsL5a67veTPBtjrfx5FrdRLky5TQf3wAL'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///FH4_cars.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -53,21 +53,34 @@ def carsearch(search):
 
 @app.route('/car/<int:info>', methods=['GET', 'POST'])
 def car(info):
-    form = FavouriteCarForm()
+    #form = FavouriteCarForm()
     car = models.Car.query.filter_by(id=info).first_or_404()
     manufacturer = models.Manufacturer.query.filter_by(id=car.manufacturerid).first()
     title = car.name
-    if form.validate_on_submit():
-        print("form validates")
-        if not current_user.is_authenticated:
-            print("it knows youre not authed")
-            flash("Please log in to favourite this car")
-            return redirect(url_for(car, info))
-        #favourite_car = models.UserCar(uid=current_user.id, cid=info)
-        #db.session.add(favourite_car)
-        #db.session.commit()
+    #if form.validate_on_submit():
+    #    print("form validates")
+    #    if not current_user.is_authenticated:
+    #        print("it knows you're not authed")
+    #        flash("Please log in to favourite this car")
+    #        return redirect(url_for('car', info=info))
+        # favourite_car = models.UserCar(uid=current_user.id, cid=info)
+        # db.session.add(favourite_car)
+        # db.session.commit()
     return render_template('show_cars.html', page_title=title, car=car,
-                           manufacturer=manufacturer, form=form)
+                           manufacturer=manufacturer)
+
+
+@app.route('/favourite/<int:id>', methods=['GET', 'POST'])
+@login_required
+def favourite(id):
+    if not current_user.is_authenticated:
+        print("it knows you're not authed")
+        flash("Please log in to favourite this car")
+        return redirect(url_for('car', id=id))
+    favourite_car = models.UserCar(uid=current_user.id, cid=id)
+    db.session.add(favourite_car)
+    db.session.commit()
+    return redirect(url_for('car', info=id))
 
 
 @app.route('/manufacturers', methods=['GET', 'POST'])

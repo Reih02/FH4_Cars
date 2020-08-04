@@ -6,3 +6,5 @@ DEBUG: file: None
 DEBUG: pause: True
 DEBUG: repl: python
 DEBUG: args: ['E:\\13DTP\\FH4 Cars\\routes.py']
+INFO: return code: 1 (0x1)
+INFO: elapsed time: 1.725391
