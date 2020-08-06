@@ -13,7 +13,24 @@
 <div id = 'smallbox1'>
     <!--adds each image onto page by using its value in the database-->
     <img id = "carshow" src={{ car.image }} alt="{{ car.name }} Picture">
-    <button onclick="location.href='{{ url_for('favourite', id=car.id)}}'" type="button"> <h3> Add to favourites </h3></button>
+    {% if current_user.is_anonymous %}
+      <form>
+        <input type="button" value="Add to favourites" onclick="msg()">
+      </form>
+
+      <script>
+        function msg() {
+          alert("Please sign in first to add this car to your favourites!");
+        }
+      </script>
+    {% elif favourited == 2  %}
+    <h1>IT WORKED</h1>
+      <button onclick="location.href='{{ url_for('favourite', id=car.id)}}'" type="button"> <h3> Add to favourites </h3></button>
+    {% else %}
+      <button onclick="location.href='{{ url_for('favourite', id=car.id)}}'" type="button"> <h3> Remove from favourites </h3></button>
+    {% endif %}
+
+
     <div id = "showcarstext">
       <h2>Name: </h2>{{ car.name }} <br>
       <h2>Manufacturer: </h2><a href="/manufacturer/{{ manufacturer.id }}">{{ manufacturer.name }}</a> <br>
