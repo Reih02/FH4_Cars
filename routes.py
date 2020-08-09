@@ -53,44 +53,26 @@ def carsearch(search):
 
 @app.route('/car/<int:info>', methods=['GET', 'POST'])
 def car(info):
+    #form = FavouriteCarForm()
     car = models.Car.query.filter_by(id=info).first_or_404()
     manufacturer = models.Manufacturer.query.filter_by(id=car.manufacturerid).first()
     title = car.name
+    if not current_user.is_authenticated:
+        flash("Please log in to favourite this car")
+        return redirect(url_for('car', id=id))
+    favourited = models.UserCar.query.filter_by(uid=current_user.id, cid=info).all()
     return render_template('show_cars.html', page_title=title, car=car,
-                           manufacturer=manufacturer)
+                           manufacturer=manufacturer,
+                           favourited=favourited)
 
 
 @app.route('/favourite/<int:id>', methods=['GET', 'POST'])
 @login_required
 def favourite(id):
-    # if user not logged in
-    if not current_user.is_authenticated:
-        flash("Please log in to favourite this car")
-        # go back to showcar page
-        return redirect(url_for('car', id=id))
-        # setting column uid as user's id and cid as the id of car
     favourite_car = models.UserCar(uid=current_user.id, cid=id)
-    # adding to db
     db.session.add(favourite_car)
     db.session.commit()
-    # getting favourited cars where user id is the current user's id
-    favourited1 = models.UserCar.query.filter_by(uid=current_user.id).all()
-    # putting the cid of those cars into a temporary list
-    templist = []
-    for i in favourited1:
-        templist.append(i.cid)
-    favourited_cars = models.UserCar.query.filter(models.UserCar.cid.in_(templist)).all()
-    # if user has favourited the car, favourited is 1 for use in html template
-    # (used integers as jinja2 gets angry at True/False statements apparently)
-    if i.cid in templist:
-        favourited = 1
-    else:
-        favourited = 2
     return redirect(url_for('car', info=id))
-    return render_template('show_cars.html', favourited1=favourited1,
-                           favourited_cars=favourited_cars,
-                           favourited=favourited)
-
 
 
 @app.route('/manufacturers', methods=['GET', 'POST'])
