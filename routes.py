@@ -75,6 +75,15 @@ def favourite(id):
     return redirect(url_for('car', info=id))
 
 
+@app.route('/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete(id):
+    favourite_car = db.session.query(models.UserCar).filter_by(uid=current_user.id, cid=id).first_or_404()
+    db.session.delete(favourite_car)
+    db.session.commit()
+    return redirect(url_for('car', info=id))
+
+
 @app.route('/manufacturers', methods=['GET', 'POST'])
 def manufacturers():
     form = SearchForm()
