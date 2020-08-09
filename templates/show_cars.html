@@ -26,10 +26,14 @@
       </script>
       <!-- else, if car hasn't been favourited show up with add button -->
     {% elif favourited|length > 0 %}
-      <button onclick="location.href='{{ url_for('delete', id=car.id)}}'" type="button"> <h3> Remove from favourites </h3></button>
+      <div id="favourite_button">
+        <button onclick="location.href='{{ url_for('delete', id=car.id)}}'" type="button"> <h3> Remove from favourites </h3></button>
+      </div>
       <!-- if car has been favourited, show up with remove button -->
     {% else %}
-      <button onclick="location.href='{{ url_for('favourite', id=car.id)}}'" type="button"> <h3> Add to favourites </h3></button>
+      <div id="favourite_button">
+        <button onclick="location.href='{{ url_for('favourite', id=car.id)}}'" type="button"> <h3> Add to favourites </h3></button>
+      </div>
     {% endif %}
 
 

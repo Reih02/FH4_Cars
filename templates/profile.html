@@ -12,6 +12,10 @@
 
 <div id = 'smallbox1'>
   <h3>{{ current_user.username }}'s Car List: </h3>
+
+  {% if cars|length == 0 %}
+    <p> Please favourite a car from the 'Cars' page to view them on your profile! </p>
+  {% endif %}
   {% for car in cars %}
     <p><a href="/car/{{ car.id }}">{{ car.name }}</p> <img id="carlist" src={{ car.image }} alt="{{ car.name }} Picture">
   {% endfor %}

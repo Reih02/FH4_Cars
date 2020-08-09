@@ -128,3 +128,7 @@ h2 {
   font-size: 16px;
   font-family: 'Abel', sans-serif;
 }
+
+#favourite_button {
+  padding-top: 2px;
+}
