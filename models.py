@@ -1,6 +1,8 @@
-from routes import db
+from routes import db, app
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from time import time
+import jwt
 
 
 class Car(db.Model):
@@ -29,6 +31,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    email = db.Column(db.String(128))
 
     # tells Python how to print objects of this class for debugging purposes
     def __repr__(self):
@@ -39,8 +42,20 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
-    # see miguel grinberg - followers for this
-    # favourited = db.relationship()
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in},
+                          app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+
+@staticmethod
+def verify_reset_password_token(token):
+    try:
+        id = jwt.decode(token, app.config['SECRET_KEY'],
+                        algorithms=['HS256'])['reset_password']
+    except:
+        return
+    return User.query.get(id)
 
 
 class UserCar(db.Model):
@@ -48,6 +63,7 @@ class UserCar(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.ForeignKey('User.id'))
     cid = db.Column(db.ForeignKey('Car.id'))
+
 
 # see miguel grinberg - followers for this
 # class UserCar(db.Model):

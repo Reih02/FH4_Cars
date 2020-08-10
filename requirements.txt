@@ -1,1 +1,4 @@
-FH4 Cars
+flask_mail
+jwt
+flask_login
+flask_wtf
