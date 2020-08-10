@@ -4,17 +4,25 @@ from werkzeug.urls import url_parse
 import models
 from forms import LoginForm, RegistrationForm, SearchForm#, FavouriteCarForm
 from flask_login import logout_user, login_user, LoginManager, current_user, login_required
+from flask_mail import Mail
 
 # initialisation stuff
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'vr2YEHkNYPsuF3TdFMsL5a67veTPBtjrfx5FrdRLky5TQf3wAL'
+app.config['SECRET_KEY'] = 'vr2YEHkNyPsuF3TdFMsL5a67veTPBtjrfx5FrdRLky5TQf3wAL'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///FH4_cars.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = 1
+app.config['MAIL_USERNAME'] = 'reillyhaskins@gmail.com'
+app.config['MAIL_PASSWORD'] =
 
 db = SQLAlchemy(app)
 loginTest = LoginManager(app)
 loginTest.login_view = 'login'
+
+mail = Mail(app)
 # ---------------------
 
 # defines searchform for use in search functions
@@ -157,7 +165,6 @@ def logout():
 @app.route('/profile/<username>')
 @login_required
 def profile(username):
-    print(current_user.id)
     profile = models.User.query.filter_by(username=username).first_or_404()
     favcars = models.UserCar.query.filter_by(uid=current_user.id).all()
     templist = []
