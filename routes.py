@@ -17,7 +17,7 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = 1
 app.config['MAIL_USERNAME'] = 'reillyhaskins@gmail.com'
-app.config['MAIL_PASSWORD'] = 'WqYjJr02'
+app.config['MAIL_PASSWORD'] = 'pamrxmhwpfvgsoxb'
 app.config['ADMINS'] = 'reillyhaskins@gmail.com'
 
 db = SQLAlchemy(app)
@@ -68,10 +68,10 @@ def car(info):
     car = models.Car.query.filter_by(id=info).first_or_404()
     manufacturer = models.Manufacturer.query.filter_by(id=car.manufacturerid).first()
     title = car.name
-    if not current_user.is_authenticated:
-        flash("Please log in to favourite this car")
-        return redirect(url_for('car', info=info))
-    favourited = models.UserCar.query.filter_by(uid=current_user.id, cid=info).all()
+    try:
+        favourited = models.UserCar.query.filter_by(uid=current_user.id, cid=info).all()
+    except AttributeError:
+        favourited = None
     return render_template('show_cars.html', page_title=title, car=car,
                            manufacturer=manufacturer,
                            favourited=favourited)
@@ -204,6 +204,7 @@ def reset_password(token):
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user.set_password(form.password.data)
+        db.session.query(models.User).filter_by(id=user.id).update({models.User.password_hash: user.password_hash})
         db.session.commit()
         flash('Your password has been reset.')
         return redirect(url_for('login'))

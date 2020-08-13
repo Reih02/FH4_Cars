@@ -1,4 +1,8 @@
-flask_mail
-jwt
-flask_login
-flask_wtf
+flask
+flask-sqlalchemy
+flask-login
+flask-mail
+WTForms
+Werkzeug
+wtforms-validators
+pyjwt

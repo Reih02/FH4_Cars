@@ -47,15 +47,14 @@ class User(UserMixin, db.Model):
         return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in},
                           app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
 
-
-@staticmethod
-def verify_reset_password_token(token):
-    try:
-        id = jwt.decode(token, app.config['SECRET_KEY'],
-                        algorithms=['HS256'])['reset_password']
-    except:
-        return
-    return User.query.get(id)
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
 
 
 class UserCar(db.Model):
