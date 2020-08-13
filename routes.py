@@ -18,6 +18,7 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = 1
 app.config['MAIL_USERNAME'] = 'reillyhaskins@gmail.com'
 app.config['MAIL_PASSWORD'] = 'WqYjJr02'
+app.config['ADMINS'] = 'reillyhaskins@gmail.com'
 
 db = SQLAlchemy(app)
 loginTest = LoginManager(app)
@@ -69,7 +70,7 @@ def car(info):
     title = car.name
     if not current_user.is_authenticated:
         flash("Please log in to favourite this car")
-        return redirect(url_for('car', id=id))
+        return redirect(url_for('car', info=info))
     favourited = models.UserCar.query.filter_by(uid=current_user.id, cid=info).all()
     return render_template('show_cars.html', page_title=title, car=car,
                            manufacturer=manufacturer,
