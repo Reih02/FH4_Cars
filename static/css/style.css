@@ -1,8 +1,10 @@
+/* defines parameters for whole site */
 html {
   background-color: #FFFFFF;
   border-bottom-style: solid;
   border-bottom-color: black;
   border-bottom-width: 150px;
+  /* defines the font to use */
   font-family: 'Abel', sans-serif;
 }
 
@@ -10,7 +12,7 @@ h2 {
   padding-top: 4.5%;
 }
 
-
+/* sets style for the navbar */
 .topnav {
   position: relative;
   background-color: black;
@@ -26,11 +28,13 @@ h2 {
   font-size: 17px;
 }
 
+/* style for navbar when user hovers over a component */
 .topnav a:hover {
   background-color: #d1cfcf;
   color: black;
 }
 
+/* style for navbar when user has clicked the link */
 .topnav a.active {
   background-color: #d1cfcf;
   color: white;
@@ -48,6 +52,7 @@ h2 {
   float: right;
 }
 
+/* style for box at top of each page */
 #smallbox {
   height: 10%;
   background-color: #d1cfcf;
@@ -57,7 +62,8 @@ h2 {
   padding-bottom: 0.4%;
 }
 
-#smallbox1 {
+/* style for larger box at middle of page that contains most content */
+#largebox {
   font-size: 22px;
   word-spacing: 3px;
   color: #fff;
@@ -72,11 +78,13 @@ h2 {
   border-radius: 10px;
 }
 
-#smallbox1 a:link {
+/* sets default links as a light blue */
+#largebox a:link {
   color: #34c3eb;
 }
 
-#smallbox1 a:visited {
+/* and visited links as a red colour */
+#largebox a:visited {
   color: red;
 }
 
@@ -110,10 +118,11 @@ h2 {
   color: red;
 }
 
+
 #flashmsg {
-  float: center;
+  text-align: center;
   padding-top: 1%;
-  margin-left: 41%;
+  color: red;
 }
 
 .button {
