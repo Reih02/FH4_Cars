@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import Flask, render_template, flash, redirect, url_for, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.urls import url_parse
 import models
@@ -94,9 +94,14 @@ def car(info):
 def favourite(id):
     # adds favourite car by assigning the current user's id to the uid table,
     # and the car's id to the cid table
-    favourite_car = models.UserCar(uid=current_user.id, cid=id)
-    db.session.add(favourite_car)
-    db.session.commit()
+    is_favourited = models.UserCar.query.filter_by(uid=current_user.id, cid=id).first()
+    if is_favourited is None:
+        try:
+            favourite_car = models.UserCar(uid=current_user.id, cid=id)
+            db.session.add(favourite_car)
+            db.session.commit()
+        except:
+            abort(500)
     return redirect(url_for('car', info=id))
 
 
@@ -107,9 +112,12 @@ def delete(id):
     # deletes favourite car by getting the car where uid is the current user's
     # id and the cid is the current car's id in the favourited car table,
     # and removing it from the database
-    favourite_car = db.session.query(models.UserCar).filter_by(uid=current_user.id, cid=id).first_or_404()
-    db.session.delete(favourite_car)
-    db.session.commit()
+    try:
+        favourite_car = db.session.query(models.UserCar).filter_by(uid=current_user.id, cid=id).first_or_404()
+        db.session.delete(favourite_car)
+        db.session.commit()
+    except:
+        redirect(url_for('car', info=id))
     return redirect(url_for('car', info=id))
 
 
@@ -186,7 +194,6 @@ def signup():
     if form.validate_on_submit():
         # puts username, email, and password into the database
         user = models.User(username=form.username.data, email=form.email.data)
-        user = models.User(username=form.username.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -276,6 +283,11 @@ def reset_password(token):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html")
+
+
+@app.errorhandler(500)
+def internal_server(e):
+    return render_template("500.html")
 
 
 # keeps track of user by storing id when they visit a page, and then uses this
