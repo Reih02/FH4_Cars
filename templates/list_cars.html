@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div id = 'smallbox1'>
+<div id = 'largebox'>
   {% for car in cars %}
     <!--adds each image onto page by using its value in the database-->
     <p><a href="/car/{{ car.id }}">{{ car.name }}</p> <img id="carlist" src={{ car.image }} alt="{{ car.name }} Picture">

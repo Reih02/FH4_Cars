@@ -10,11 +10,15 @@
   </h2>
 </div>
 
-<div id = 'smallbox1'>
-  {% for manufacturers in manufacturer %}
-    <!--adds each image onto page by using its value in the database-->
-    <p><a href="/manufacturer/{{ manufacturers.id }}">{{ manufacturers.name }}</p>
-  {% endfor %}
+<div id = 'largebox'>
+  {% if manufacturer|length == 0 %}
+    <p> No manufacturers found! </p>
+  {% else %}
+    {% for manufacturers in manufacturer %}
+      <!--adds each image onto page by using its value in the database-->
+      <p><a href="/manufacturer/{{ manufacturers.id }}">{{ manufacturers.name }}</p>
+    {% endfor %}
+  {% endif %}
 </div>
 
 {%endblock%}
