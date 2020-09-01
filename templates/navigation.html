@@ -1,23 +1,32 @@
 <div class="topnav">
 
+  <!-- home link -->
   <div class="topnav-centered">
     <a href=" {{ url_for('home')}} "><h3>Home</h3></a>
   </div>
 
+  <!-- image link that goes home -->
   <a href=" {{url_for('home')}} "><img src="/static/images/logo.jpg" length="240" width="150"></a>
+  <!-- link to cars list -->
   <a href="/cars"><h3>Cars</h3></a>
+  <!-- link to manufacturers list -->
   <a href="/manufacturers"><h3>Manufacturers</h3></a>
 
 
   <div class="topnav-right">
+    <!-- if current user isn't signed in, have link for login page in navbar -->
     {% if current_user.is_anonymous %}
       <a href="{{ url_for('login') }}"><h3>Log In</h3></a>
+    <!-- otherwise, have logout link -->
     {% else %}
       <a href="{{ url_for('logout') }}"><h3>Logout</h3></a>
     {% endif %}
+    <!-- if current user isn't signed in, have link for signup page in navbar -->
     {% if current_user.is_anonymous %}
     <a href="/signup"><h3>Sign Up</h3></a>
     {% endif %}
+    <!-- if current user is signed in, have link to profile with text as
+     current user's name -->
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('profile', username=current_user.username) }}"><h3>{{ current_user.username }}</h3></a>
       <!--<a href="/profile/<username>"><h3>{{ current_user.username }}</h3></a>-->

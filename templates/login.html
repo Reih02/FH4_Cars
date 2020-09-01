@@ -11,8 +11,8 @@
 <div id = 'largebox'>
 <form action="" method="post" novalidate>
   {{ form.hidden_tag() }}
-    <!-- <p>New User? <a href="{{ url_for('signup') }}">Click to Register!</a></p> -->
     <h3>
+      <!-- handling username parameters -->
       {{ form.username.label }}<br>
       {{ form.username(size=18) }}
       {% for error in form.username.errors %}
@@ -20,16 +20,19 @@
       {% endfor %}
     </h3>
     <h3>
+      <!-- handling password parameters -->
       {{ form.password.label }}<br>
       {{ form.password(size=18) }}
       {% for error in form.password.errors %}
         <span style="color: red;">[{{ error }}]</span>
       {% endfor %}
     </h3>
+      <!-- handles remember me submission -->
       <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
       <p>{{ form.submit() }}</p>
     <h3>
       <p>
+        <!-- link to reset password function -->
         Forgot Your Password?
         <a href="{{ url_for('reset_password_request') }}">Click here to reset</a>
       </p>

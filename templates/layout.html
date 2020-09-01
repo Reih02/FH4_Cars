@@ -11,8 +11,10 @@
     {%include 'header.html'%}
     {%include 'navigation.html'%}
     {% with messages = get_flashed_messages() %}
+    <!-- if messages exist -->
     {% if messages %}
     <div id = 'flashmsg'>
+      <!-- for loop for flashed messages -->
       {% for message in messages %}
         {{ message }}
       {% endfor %}

@@ -5,6 +5,7 @@ from time import time
 import jwt
 
 
+# defines rows in Car table
 class Car(db.Model):
     __tablename__ = 'Car'
 
@@ -18,6 +19,7 @@ class Car(db.Model):
     manufacturerid = db.Column(db.Text, db.ForeignKey('Manufacturer.id'))
 
 
+# defines rows in Manufacturer table
 class Manufacturer(db.Model):
     __tablename__ = 'Manufacturer'
 
@@ -26,6 +28,7 @@ class Manufacturer(db.Model):
     details = db.Column(db.Text(250), nullable=False)
 
 
+# defines rows in User table
 class User(UserMixin, db.Model):
     __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key=True)
@@ -43,6 +46,7 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    # encoding token using sha256 algorithm
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in},
                           app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
@@ -57,15 +61,9 @@ class User(UserMixin, db.Model):
         return User.query.get(id)
 
 
+# defines rows in UserCar table
 class UserCar(db.Model):
     __tablename__ = 'UserCar'
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.ForeignKey('User.id'))
     cid = db.Column(db.ForeignKey('Car.id'))
-
-
-# see miguel grinberg - followers for this
-# class UserCar(db.Model):
-    # __tablename__ = 'UserCar'
-    # uid = db.Column(db.Integer, db.ForeignKey('User.id'))
-    # cid = db.Column(db.Integer, db.ForeignKey('Car.id'))

@@ -11,12 +11,13 @@
 </div>
 
 <div id = 'largebox'>
-
+  <!-- if list 'car' in csearch route has length (i.e it exists) -->
   {% if car|length == 0 %}
     <p> No cars found! </p>
   {% else %}
     {% for cars in car %}
       <!--adds each image onto page by using its value in the database-->
+      <!-- link to car -->
       <p><a href="/car/{{ cars.id }}">{{ cars.name }}</p> <img id="carlist" src={{ cars.image }} alt="{{ car.name }} Picture">
     {% endfor %}
   {% endif %}

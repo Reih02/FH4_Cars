@@ -88,6 +88,7 @@ h2 {
   color: red;
 }
 
+/* style for image of car */
 #image1 {
   float: none;
   position: absolute;
@@ -106,19 +107,22 @@ h2 {
   height: 100%;
 }
 
+/* style for font on show cars page */
 #showcarstext {
   font-size: 25px;
 }
 
+/* style for normal link on show cars page */
 #showcarstext a:link {
   color: #34c3eb;
 }
 
+/* style for visited link on show cars page */
 #showcarstext a:visited {
   color: red;
 }
 
-
+/* sets style for messages flashed on site */
 #flashmsg {
   text-align: center;
   padding-top: 1%;
