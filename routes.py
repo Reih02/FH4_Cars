@@ -45,9 +45,9 @@ def home():
 # route to show all cars
 @app.route('/cars', methods=['GET', 'POST'])
 def cars():
+    cars = models.Car.query.all()
     # defines search form under form variable for use later
     form = SearchForm()
-    cars = models.Car.query.all()
     # if search form validates:
     if form.validate_on_submit():
         # run next route (carsearch)

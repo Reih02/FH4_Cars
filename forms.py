@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, ValidationError, EqualTo, Email
+from wtforms.validators import DataRequired, ValidationError, EqualTo, Email, Length
 import models
 
 
@@ -37,7 +37,8 @@ class RegistrationForm(FlaskForm):
 
 # defines variables in SearchForm
 class SearchForm(FlaskForm):
-    query = StringField('query', validators=[DataRequired()])
+    # makes max search 30 characters long for security purposes
+    query = StringField('query', validators=[DataRequired(), Length(max=30)])
     submit = SubmitField('🔍')
 
 
