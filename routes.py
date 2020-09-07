@@ -52,6 +52,8 @@ def cars():
         # run next route (carsearch)
         return redirect(url_for('carsearch', search=form.query.data))
     else:
+        if request.method == 'POST':
+            flash('Please do not enter more than 30 characters in a search')
         # go back
         return render_template('list_cars.html', page_title="CAR LIST",
                                cars=cars)
@@ -128,6 +130,8 @@ def manufacturers():
     if form.validate_on_submit():
         return redirect(url_for('manufacturersearch', search=form.query.data))
     else:
+        if request.method == 'POST':
+            flash('Please do not enter more than 30 characters in a search')
         return render_template('list_manufacturers.html',
                                page_title="MANUFACTURER LIST",
                                manufacturers=manufacturers)
