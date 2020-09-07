@@ -10,7 +10,7 @@ from forms import ResetPasswordRequestForm, ResetPasswordForm
 # initialisation stuff
 app = Flask(__name__)
 
-# defines secret key for use in anything encrypted(logins, password hasking, etc.)
+# defines secret key for use in anything encrypted(logins, password hashing, etc.)
 app.config['SECRET_KEY'] = 'vr2YEHkNyPsuF3TdFMsL5a67veTPBtjrfx5FrdRLky5TQf3wAL'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///FH4_cars.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -52,6 +52,7 @@ def cars():
     if form.validate_on_submit():
         # run next route (carsearch)
         return redirect(url_for('carsearch', search=form.query.data))
+        flash("Search too long")
     else:
         # go back
         return render_template('list_cars.html', page_title="CAR LIST",

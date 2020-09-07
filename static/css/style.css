@@ -8,6 +8,11 @@ html {
   font-family: 'Abel', sans-serif;
 }
 
+h1 {
+  padding-top: 6%;
+  font-size: 40px;
+}
+
 h2 {
   padding-top: 4.5%;
 }
@@ -144,4 +149,8 @@ h2 {
 
 #favourite_button {
   padding-top: 2px;
+}
+
+#resetpassreq {
+  text-align: center;
 }
