@@ -6,6 +6,7 @@ from forms import LoginForm, RegistrationForm, SearchForm
 from flask_login import logout_user, login_user, LoginManager, current_user, login_required
 from flask_mail import Mail
 from forms import ResetPasswordRequestForm, ResetPasswordForm
+from sqlalchemy.exc import IntegrityError
 
 # initialisation stuff
 app = Flask(__name__)
@@ -196,10 +197,14 @@ def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         # puts username, email, and password into the database
-        user = models.User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
+        try:
+            user = models.User(username=form.username.data, email=form.email.data)
+            user.set_password(form.password.data)
+            db.session.add(user)
+            db.session.commit()
+        # if IntegrityError from jquery in signup.html:
+        except IntegrityError:
+            return redirect(url_for('login'))
         # tells user they are signed up and sends them to login page
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
