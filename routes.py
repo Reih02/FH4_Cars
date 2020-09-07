@@ -41,7 +41,6 @@ def inject_search():
 def home():
     return render_template("home.html", page_title="WELCOME TO FH4 CARS")
 
-
 # route to show all cars
 @app.route('/cars', methods=['GET', 'POST'])
 def cars():
@@ -52,7 +51,6 @@ def cars():
     if form.validate_on_submit():
         # run next route (carsearch)
         return redirect(url_for('carsearch', search=form.query.data))
-        flash("Search too long")
     else:
         # go back
         return render_template('list_cars.html', page_title="CAR LIST",

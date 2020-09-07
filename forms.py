@@ -6,20 +6,20 @@ import models
 
 # defines variables in LoginForm
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "Username"})
-    password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "Password"})
+    username = StringField('Username', validators=[DataRequired(), Length(max=30)], render_kw={"placeholder": "Username"})
+    password = PasswordField('Password', validators=[DataRequired(), Length(max=30)], render_kw={"placeholder": "Password"})
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
 
 # defines variables in RegistrationForm
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired(), Length(max=30)])
+    email = StringField('Email', validators=[DataRequired(), Email(), Length(max=30)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(max=30)])
     # makes sure 2nd password is same as 1st password
     password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+        'Repeat Password', validators=[DataRequired(), EqualTo('password'), Length(max=30)])
     submit = SubmitField('Register')
 
     # checks if username already exists
@@ -37,7 +37,6 @@ class RegistrationForm(FlaskForm):
 
 # defines variables in SearchForm
 class SearchForm(FlaskForm):
-    # makes max search 30 characters long for security purposes
     query = StringField('query', validators=[DataRequired(), Length(max=30)])
     submit = SubmitField('🔍')
 
