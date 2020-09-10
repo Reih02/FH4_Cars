@@ -197,14 +197,11 @@ def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         # puts username, email, and password into the database
-        try:
-            user = models.User(username=form.username.data, email=form.email.data)
-            user.set_password(form.password.data)
-            db.session.add(user)
-            db.session.commit()
-        # if IntegrityError from jquery in signup.html:
-        except IntegrityError:
-            return redirect(url_for('login'))
+        print('submitted')
+        user = models.User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
         # tells user they are signed up and sends them to login page
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
