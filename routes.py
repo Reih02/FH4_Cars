@@ -197,7 +197,6 @@ def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         # puts username, email, and password into the database
-        print('submitted')
         user = models.User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
@@ -305,4 +304,4 @@ def load_user(id):
 
 # tells flask what port to run on
 if __name__ == "__main__":
-    app.run(debug=True, port=1111)
+    app.run(debug=False, port=1111)
