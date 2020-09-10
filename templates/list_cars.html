@@ -26,9 +26,8 @@
 <div id = 'largebox'>
   {% for car in cars %}
     <!--adds each image onto page by using its value in the database-->
-    <div id = "cars">
-      <a href="/car/{{ car.id }}">{{ car.name }} <img id="carlist" src={{ car.image }} alt="{{ car.name }} Picture">
-    </div>
+    <p><a href="/car/{{ car.id }}">{{ car.name }}</p> <img id="carlist" src={{ car.image }} alt="{{ car.name }} Picture">
+      <!--<p><a href="/car/{{ car.id }}">{{ car.name }}></p> <img id="carlist" src={{ car.image }} alt="{{ car.name }} Picture">-->
   {% endfor %}
 </div>
 

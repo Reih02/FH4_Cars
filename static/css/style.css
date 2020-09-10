@@ -107,13 +107,13 @@ h2 {
   height: 96.8%;
 }
 
-#cars {
-  padding-top: 5px;
-}
-
 #carshow {
   width: 100%;
   height: 100%;
+}
+
+#cars{
+  padding-top: 45px;
 }
 
 /* style for font on show cars page */
